@@ -79,7 +79,7 @@
                         <i data-lucide="sun" class="hidden dark:block w-4 h-4"></i>
                     </button>
 
-                    <button onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition-colors text-gray-600 hover:text-neutral-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-neutral-800">
+                    <button id="mobile-menu-btn" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition-colors text-gray-600 hover:text-neutral-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-neutral-800">
                         <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
                         <i data-lucide="x" id="close-icon" class="hidden w-6 h-6"></i>
                     </button>
@@ -360,6 +360,20 @@
                 closeIcon.classList.add('hidden');
             }
         }
+
+        // --- Logic Close Menu Click Outside ---
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-menu');
+            const menuBtn = document.getElementById('mobile-menu-btn');
+
+            // Cek jika menu sedang terbuka (tidak hidden)
+            if (!menu.classList.contains('hidden')) {
+                // Cek jika yang diklik BUKAN bagian dari menu dan BUKAN tombol toggle
+                if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+                    toggleMenu(); // Panggil fungsi toggle untuk menutup
+                }
+            }
+        });
     </script>
 </body>
 </html>
